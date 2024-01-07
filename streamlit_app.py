@@ -20,12 +20,13 @@ knn = joblib.load(model)
 # create title
 st.title("Coconut Quality Classification App")
 
+# upload image
 uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
+# check if the file is uploaded
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
-    temp_image_path = './temps/temp_image.jpg'
-    image.save(temp_image_path)
+    image.save('temp_image.jpg')
     st.image(image, caption='Uploaded Image', use_column_width=True)
     
     rataR = []
