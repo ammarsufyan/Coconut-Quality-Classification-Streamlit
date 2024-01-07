@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pandas as pd
 import joblib
@@ -13,7 +14,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import MinMaxScaler
 
 # Loading Our final trained Knn model 
-model = open("knn_coconut.pkl", "rb")
+model = open("knn_coconut_min_max.pkl", "rb")
 knn = joblib.load(model)
 
 # create title
@@ -23,6 +24,8 @@ uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
+    temp_image_path = 'temp_image.jpg'
+    image.save(temp_image_path)
     st.image(image, caption='Coconut Image', use_column_width=True)
     
     rataR = []
@@ -42,9 +45,8 @@ if uploaded_file is not None:
     homogeneity = []
     energy = []
     correlation = []
-    label = []
     
-    gbr_read = cv2.imread(image)
+    gbr_read = cv2.imread(temp_image_path)
     gbr_rgb = cv2.cvtColor(gbr_read, cv2.COLOR_BGR2RGB)
     (R, G, B) = cv2.split(gbr_rgb)
     meanR = np.mean(R)
@@ -117,15 +119,16 @@ if uploaded_file is not None:
 
     listdata = [data1, data2, data3, data4, data5, data6, data7, data8, data9, 
                 data10, data11, data12, data13, data14, data15]
-    x = pd.concat(listdata, axis=1)
+    x = pd.concat(listdata, axis=1, ignore_index=True)
     
-    scaler = MinMaxScaler()
-    x = scaler.fit_transform(x)
+    st.write(x) 
     y_prediksi = knn.predict(x)
     
-    if y_prediksi[0] == 0:
-        st.write("kelapastandar")
-    elif y_prediksi[0] == 1:
-        st.write("kelapatidakstandar")
+    if y_prediksi == 0:
+        st.write("<p style='text-align: center;'><center>Kelapa Standar</center></p>", unsafe_allow_html=True)
+    elif y_prediksi == 1:
+        st.write("<p style='text-align: center;'><center>Kelapa Tidak Standar</center></p>", unsafe_allow_html=True)
     else:
-        st.write("error")
+        st.write("<p style='text-align: center;'><center>error</center></p>", unsafe_allow_html=True)
+else:
+    st.write("<p style='text-align: center;'><center>Upload an image</center></p>", unsafe_allow_html=True)
