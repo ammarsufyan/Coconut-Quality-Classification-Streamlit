@@ -23,10 +23,14 @@ st.title("Coconut Quality Classification App")
 # upload image
 uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
+# Create the 'temps/' directory if it doesn't exist
+os.makedirs('temps/', exist_ok=True)
+
 # check if the file is uploaded
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
-    image.save('temp_image.jpg')
+    temp_image_path = 'temps/temp_image.jpg'
+    image.save(temp_image_path)
     st.image(image, caption='Uploaded Image', use_column_width=True)
     
     rataR = []
