@@ -14,7 +14,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import MinMaxScaler
 
 # Loading Our final trained Knn model 
-model = open("models/knn_coconut_min_max.pkl", "rb")
+model = open("./models/knn_coconut_min_max.pkl", "rb")
 knn = joblib.load(model)
 
 # create title
@@ -24,7 +24,7 @@ uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
-    temp_image_path = 'temp_image.jpg'
+    temp_image_path = './temp/temp_image.jpg'
     image.save(temp_image_path)
     st.image(image, caption='Uploaded Image', use_column_width=True)
     
