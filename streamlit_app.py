@@ -14,7 +14,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import MinMaxScaler
 
 # Loading Our final trained Knn model 
-model = open("knn_coconut_min_max.pkl", "rb")
+model = open("models/knn_coconut_min_max.pkl", "rb")
 knn = joblib.load(model)
 
 # create title
