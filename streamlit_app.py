@@ -26,7 +26,7 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file)
     temp_image_path = 'temp_image.jpg'
     image.save(temp_image_path)
-    st.image(image, caption='Coconut Image', use_column_width=True)
+    st.image(image, caption='Uploaded Image', use_column_width=True)
     
     rataR = []
     rataG = []
@@ -130,5 +130,3 @@ if uploaded_file is not None:
         st.write("<p style='text-align: center;'><center>Kelapa Tidak Standar</center></p>", unsafe_allow_html=True)
     else:
         st.write("<p style='text-align: center;'><center>error</center></p>", unsafe_allow_html=True)
-else:
-    st.write("<p style='text-align: center;'><center>Upload an image</center></p>", unsafe_allow_html=True)
