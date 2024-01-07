@@ -29,7 +29,7 @@ os.makedirs('temps/', exist_ok=True)
 # check if the file is uploaded
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
-    temp_image_path = 'temps/temp_image.jpg'
+    temp_image_path = 'temps/temp_image.png'
     image.save(temp_image_path)
     st.image(image, caption='Uploaded Image', use_column_width=True)
     
