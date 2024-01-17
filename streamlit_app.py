@@ -6,6 +6,7 @@ import numpy as np
 import seaborn as sb
 import cv2
 from PIL import Image
+from rembg import remove
 from skimage.feature import graycomatrix, graycoprops
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
@@ -28,11 +29,22 @@ os.makedirs('temps/', exist_ok=True)
 
 # check if the file is uploaded
 if uploaded_file is not None:
+    # Read the image
     image = Image.open(uploaded_file)
+    # Save the image to 'temps/temp_image.png'
     temp_image_path = 'temps/temp_image.png'
-    image.save(temp_image_path)
-    st.image(image, caption='Uploaded Image', use_column_width=True)
+    # Remove the background of the image
+    output = remove(image)
+    # Crop the image to the contents within the bounding box
+    output = output.crop(output.getbbox())
+    # Resize image to 224x224 pixels
+    output = output.resize((224, 224))
+    # Save the processed image
+    output.save(temp_image_path)
+    # Display the processed image
+    st.image(output, caption='Uploaded Image', use_column_width=True)
     
+    # Ekstraksi Fitur Warna
     rataR = []
     rataG = []
     rataB = []
@@ -125,8 +137,9 @@ if uploaded_file is not None:
     listdata = [data1, data2, data3, data4, data5, data6, data7, data8, data9, 
                 data10, data11, data12, data13, data14, data15]
     x = pd.concat(listdata, axis=1, ignore_index=True)
-    
     st.write(x) 
+    
+    # Prediksi Kelapa Standar atau Tidak Standar
     y_prediksi = knn.predict(x)
     
     if y_prediksi == 0:
