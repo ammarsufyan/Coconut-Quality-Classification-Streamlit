@@ -31,7 +31,7 @@ os.makedirs('temps/', exist_ok=True)
 if uploaded_file is not None:
     # Read the image
     image = Image.open(uploaded_file)
-    # Save the image to 'temps/temp_image.png'
+    # Set the image path
     temp_image_path = 'temps/temp_image.png'
     # Remove the background of the image
     output = remove(image)
