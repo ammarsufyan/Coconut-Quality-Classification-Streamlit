@@ -3,16 +3,10 @@ import streamlit as st
 import pandas as pd
 import joblib
 import numpy as np
-import seaborn as sb
 import cv2
 from PIL import Image
 from rembg import remove
 from skimage.feature import graycomatrix, graycoprops
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import classification_report
-from sklearn.metrics import confusion_matrix
-from sklearn.preprocessing import MinMaxScaler
 
 # Loading the model
 model = open("models/knn_coconut_min_max.pkl", "rb")
@@ -41,6 +35,7 @@ if uploaded_file is not None:
     output = output.resize((224, 224))
     # Save the processed image
     output.save(temp_image_path)
+    
     # Display the processed image
     st.image(output, caption='Uploaded Image', use_column_width=True)
     
