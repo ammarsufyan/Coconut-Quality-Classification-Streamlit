@@ -14,14 +14,14 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import MinMaxScaler
 
-# Loading Our final trained Knn model 
+# Loading the model
 model = open("models/knn_coconut_min_max.pkl", "rb")
 knn = joblib.load(model)
 
-# create title
+# Create title
 st.title("Coconut Quality Classification App")
 
-# upload image
+# Upload image 
 uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
 # Create the 'temps/' directory if it doesn't exist
@@ -44,7 +44,7 @@ if uploaded_file is not None:
     # Display the processed image
     st.image(output, caption='Uploaded Image', use_column_width=True)
     
-    # Ekstraksi Fitur Warna
+    # Ekstraksi Fitur Warna dan Bentuk
     rataR = []
     rataG = []
     rataB = []
@@ -117,7 +117,8 @@ if uploaded_file is not None:
     homogeneity.append(homogeneity_val)
     energy.append(energy_val)
     correlation.append(correlation_val)
-
+    
+    # Memasukkan data ke dalam dataframe
     data1 = pd.DataFrame(rataR, columns=['Mean-R'])
     data2 = pd.DataFrame(rataG, columns=['Mean-G'])
     data3 = pd.DataFrame(rataB, columns=['Mean-B'])
@@ -133,10 +134,14 @@ if uploaded_file is not None:
     data13 = pd.DataFrame(homogeneity, columns=['Homogeneity'])
     data14 = pd.DataFrame(energy, columns=['Energy'])
     data15 = pd.DataFrame(correlation, columns=['Correlation'])
-
+    
+    # Memasukkan data ke dalam list
     listdata = [data1, data2, data3, data4, data5, data6, data7, data8, data9, 
                 data10, data11, data12, data13, data14, data15]
+    # Menggabungkan data dari list
     x = pd.concat(listdata, axis=1, ignore_index=True)
+    
+    # Menampilkan data
     st.write(x) 
     
     # Prediksi Kelapa Standar atau Tidak Standar
