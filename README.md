@@ -1,4 +1,4 @@
-# Coconut Quality Classification App
+# Coconut Quality Classification Streamlit
 
 This project is an application for classifying the quality of coconuts using the K Nearest Neighbors algorithm. It is built with Streamlit for easy deployment.
 
